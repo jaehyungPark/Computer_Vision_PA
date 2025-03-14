@@ -43,8 +43,8 @@ def main():
     if os.path.isfile(f"{output_dir}/light_dirs.npy"):
         light_dirs = np.load("./output/light_dirs.npy")
     else:    
-        chromeballs = [f"{args.dataset_root}/chromeball/bmp/{i}.bmp" for i in range(args.image_cnt)]
-        chromeball_mask = cv2.imread(f"{args.dataset_root}/chromeball/mask/mask.bmp", cv2.IMREAD_GRAYSCALE) / 255.0
+        chromeballs = [f"{args.dataset_root}/chromeball/jpg/{i}.jpg" for i in range(args.image_cnt)]
+        chromeball_mask = cv2.imread(f"{args.dataset_root}/chromeball/mask/mask.jpg", cv2.IMREAD_GRAYSCALE) / 255.0
             
         # Recover Light Directions
         light_dirs = recover_light_direction(chromeballs, chromeball_mask)
@@ -58,8 +58,8 @@ def main():
         input_dir = os.path.join(args.dataset_root, obj)
         
         # Load Data
-        images = [f"{input_dir}/bmp/{i}.bmp" for i in range(args.image_cnt)]
-        image_mask = cv2.imread(f"{input_dir}/mask/mask.bmp", cv2.IMREAD_GRAYSCALE) / 255.0
+        images = [f"{input_dir}/jpg/{i}.jpg" for i in range(args.image_cnt)]
+        image_mask = cv2.imread(f"{input_dir}/mask/mask.jpg", cv2.IMREAD_GRAYSCALE) / 255.0
         
         #############################################################################
         ########################### Step2: Least Squares ############################
@@ -96,7 +96,7 @@ def main():
         ############################# Step4: Relighting #############################
         #############################################################################
 
-        unknown_image = cv2.imread(f"{input_dir}/bmp/unknown.bmp", cv2.IMREAD_GRAYSCALE) / 255.0
+        unknown_image = cv2.imread(f"{input_dir}/jpg/unknown.jpg", cv2.IMREAD_GRAYSCALE) / 255.0
         cv2.imwrite(f"{output_dir}/{obj}/unknown_image.png", (unknown_image * image_mask * 255).astype(np.uint8))
 
         unknown_light_dir = np.load("./input/unknown_light_dir.npy")
