@@ -8,7 +8,6 @@ from recover_lightdir import recover_light_direction
 from least_squares import solve_least_squares
 from rpca import ialm
 from relight import relight_object
-from estimate_lightdir import estimate_light_direction
 
 def args_parser():
     parser = argparse.ArgumentParser(description='PA1: Photometric stereo')
@@ -51,7 +50,6 @@ def main():
         light_dirs = recover_light_direction(chromeballs, chromeball_mask)
         np.save(f"{output_dir}/light_dirs.npy", light_dirs)
     print(light_dirs)
-        
     
     for obj in objects:
         print(f"processing {obj}")
@@ -79,7 +77,7 @@ def main():
 
         os.makedirs(f"{output_dir}/{obj}/ls", exist_ok=True)
         cv2.imwrite(f"{output_dir}/{obj}/ls/normal_map.png", (normal_map * 255).astype(np.uint8))
-        cv2.imwrite(f"{output_dir}/{obj}/ls/albedo.png", (albedo * 255 * image_mask).astype(np.uint8))
+        cv2.imwrite(f"{output_dir}/{obj}/ls/albedo_map.png", (albedo * 255 * image_mask).astype(np.uint8))
         
         # MC (IALM)
         A_hat, E_hat, _ = ialm(I)
@@ -87,17 +85,16 @@ def main():
 
         os.makedirs(f"{output_dir}/{obj}/rpca", exist_ok=True)
         cv2.imwrite(f"{output_dir}/{obj}/rpca/normal_map.png", (normal_map * 255).astype(np.uint8))
-        cv2.imwrite(f"{output_dir}/{obj}/rpca/albedo.png", (albedo * 255 * image_mask).astype(np.uint8))
+        cv2.imwrite(f"{output_dir}/{obj}/rpca/albed_map.png", (albedo * 255 * image_mask).astype(np.uint8))
         
         # Estimate Light Direction for Unknown Light Condition
         unknown_image = cv2.imread(f"{input_dir}/bmp/unknown.bmp", cv2.IMREAD_GRAYSCALE) / 255.0
         cv2.imwrite(f"{output_dir}/{obj}/unknown_image.png", (unknown_image * 255).astype(np.uint8))
 
-        estimated_light_dir = estimate_light_direction(normal_map, unknown_image, image_mask)
-        print(estimated_light_dir)
+        unknown_light_dir = np.load("./input/unknown_light_dir.npy")
         
         # Relighting
-        relit_image = relight_object(normal_map, albedo, estimated_light_dir, image_mask)
+        relit_image = relight_object(normal_map, albedo, unknown_light_dir, image_mask)
         cv2.imwrite(f"{output_dir}/{obj}/relit_image.png", (relit_image * 255).astype(np.uint8))
         
         # Compute MSE
