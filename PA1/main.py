@@ -97,7 +97,7 @@ def main():
         #############################################################################
 
         unknown_image = cv2.imread(f"{input_dir}/bmp/unknown.bmp", cv2.IMREAD_GRAYSCALE) / 255.0
-        cv2.imwrite(f"{output_dir}/{obj}/unknown_image.png", (unknown_image * 255).astype(np.uint8))
+        cv2.imwrite(f"{output_dir}/{obj}/unknown_image.png", (unknown_image * image_mask * 255).astype(np.uint8))
 
         unknown_light_dir = np.load("./input/unknown_light_dir.npy")
 
