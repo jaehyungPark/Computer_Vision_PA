@@ -2,7 +2,7 @@
 GIST computer vision programming assignments
 
 ## PA1: Photometric Stereo
-- Due: Mar.5
+- Due: 5th, April, 2025
 - TA: Wooseok Jeon (jws5271a@gm.gist.ac.kr)
 
 ## PA2: Structure from Motion
