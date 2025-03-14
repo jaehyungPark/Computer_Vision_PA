@@ -11,7 +11,7 @@ from relight import relight_object
 
 def args_parser():
     parser = argparse.ArgumentParser(description='PA1: Photometric stereo')
-    parser.add_argument('-d', '--dataset_root', type=str, default='./PA1_dataset')
+    parser.add_argument('-d', '--dataset_root', type=str, default='./input')
     parser.add_argument('-o', '--object', type=str, default='all')
     parser.add_argument('-i', '--image_cnt', type=int, default=11)
 
@@ -49,7 +49,6 @@ def main():
         # Recover Light Directions
         light_dirs = recover_light_direction(chromeballs, chromeball_mask)
         np.save(f"{output_dir}/light_dirs.npy", light_dirs)
-    print(light_dirs)
     
     for obj in objects:
         print(f"processing {obj}")
@@ -61,8 +60,11 @@ def main():
         # Load Data
         images = [f"{input_dir}/bmp/{i}.bmp" for i in range(args.image_cnt)]
         image_mask = cv2.imread(f"{input_dir}/mask/mask.bmp", cv2.IMREAD_GRAYSCALE) / 255.0
-
-        # Solve Least Squares for Normal Map
+        
+        #############################################################################
+        ########################### Step2: Least Squares ############################
+        #############################################################################
+    
         rows, cols = np.where(image_mask == 1)
         print(rows.shape)
 
@@ -79,7 +81,10 @@ def main():
         cv2.imwrite(f"{output_dir}/{obj}/ls/normal_map.png", (normal_map * 255).astype(np.uint8))
         cv2.imwrite(f"{output_dir}/{obj}/ls/albedo_map.png", (albedo * 255 * image_mask).astype(np.uint8))
         
-        # MC (IALM)
+        #############################################################################
+        ########################### Step3: RPCA via IALM ############################
+        #############################################################################
+
         A_hat, E_hat, iter = ialm(I)
         normal_map, albedo = solve_least_squares(A_hat, light_dirs.T, rows, cols, image_mask)
 
@@ -87,13 +92,15 @@ def main():
         cv2.imwrite(f"{output_dir}/{obj}/rpca/normal_map.png", (normal_map * 255).astype(np.uint8))
         cv2.imwrite(f"{output_dir}/{obj}/rpca/albed_map.png", (albedo * 255 * image_mask).astype(np.uint8))
         
-        # Estimate Light Direction for Unknown Light Condition
+        #############################################################################
+        ############################# Step4: Relighting #############################
+        #############################################################################
+
         unknown_image = cv2.imread(f"{input_dir}/bmp/unknown.bmp", cv2.IMREAD_GRAYSCALE) / 255.0
         cv2.imwrite(f"{output_dir}/{obj}/unknown_image.png", (unknown_image * 255).astype(np.uint8))
 
         unknown_light_dir = np.load("./input/unknown_light_dir.npy")
-        
-        # Relighting
+
         relit_image = relight_object(normal_map, albedo, unknown_light_dir, image_mask)
         cv2.imwrite(f"{output_dir}/{obj}/relit_image.png", (relit_image * 255).astype(np.uint8))
         
