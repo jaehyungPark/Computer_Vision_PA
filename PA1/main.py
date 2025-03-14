@@ -80,7 +80,7 @@ def main():
         cv2.imwrite(f"{output_dir}/{obj}/ls/albedo_map.png", (albedo * 255 * image_mask).astype(np.uint8))
         
         # MC (IALM)
-        A_hat, E_hat, _ = ialm(I)
+        A_hat, E_hat, iter = ialm(I)
         normal_map, albedo = solve_least_squares(A_hat, light_dirs.T, rows, cols, image_mask)
 
         os.makedirs(f"{output_dir}/{obj}/rpca", exist_ok=True)
