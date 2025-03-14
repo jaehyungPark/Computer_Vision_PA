@@ -9,6 +9,8 @@ This repository contains the code for a programming assignment on photometric st
 
 ## Overview
 
+### Before you start, make sure you understand the code flow by reading main.py
+
 The provided code follows these main steps:
 1. **Recover Light Directions:**  
    Use images of a chromeball to compute light directions.  
@@ -27,7 +29,7 @@ The provided code follows these main steps:
    *Fill the #todo blank in* `relight_object`
 
 ## Directory Structure
-You can download the PA1_dataset [here]().
+You can download data [here]().
 ```
 . 
 ├── input/                  # Input dataset directory 
@@ -97,10 +99,11 @@ arguments:
 ## Output
 The script generates the following outputs for each object:
 
-- Normal Map: Saved as normal_map.png under both ls (least squares) and rpca (RPCA) directories.
-- Albedo Map: Saved as albedo.png under both ls and rpca directories.
-- Unknown Image: Saved as unknown_image.png for reference.
+- Light Direction: Saved as light_dir.npy.
+- Normal Map: Saved as normal_map.png under both ls and rpca directories.
+- Albedo Map: Saved as albedo_map.png under both ls and rpca directories.
+- Unknown Image: Saved as unknown_image.png.
 - Relit Image: Saved as relit_image.png.
-- MSE Value: A text file (mse.txt) containing the mean squared error between the unknown image and the relit image.
-
+- MSE Value: Saved as mse.txt.
+  
 All outputs are saved in the output/ directory.
