@@ -14,6 +14,9 @@ def relight_object(normal_map, albedo_map, light_dir, mask):
     Returns:
         relit_img (numpy.ndarray): Image relit under the new light direction (HxW)
     """
-    #TODO: Fill this functions
+    # TODO: Fill this functions
     
+
+    relit_img *= mask
+
     return relit_img

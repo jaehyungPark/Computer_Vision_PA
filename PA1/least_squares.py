@@ -13,9 +13,16 @@ def solve_least_squares(I, L, rows, cols, mask):
         cols (numpy.ndarray): Column indices of the object pixels.
 
     Returns:
-        NormalMap (numpy.ndarray): Estimated surface normals.
-        Albedo (numpy.ndarray): Estimated albedo.
+        normal (numpy.ndarray): Estimated surface normals.
+        albedo (numpy.ndarray): Estimated albedo.
     """
-    #TODO: Fill this functions
+    h, w = mask.shape
+    normal = np.zeros((h, w, 3))
+    albedo = np.zeros((h, w))
+    # TODO: Fill this functions
+
+    for i in tqdm(range(len(rows)), desc='Solving least squares'):
+        # TODO: Fill this functions
+        # Important Notes: opencv uses BGR, not RGB
     
-    return NormalMap, Albedo
+    return normal, albedo

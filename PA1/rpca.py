@@ -1,22 +1,7 @@
 import numpy as np
 
 def shrink(X, tau):
-    """
-    Applies the shrinkage (soft-thresholding) operator element-wise on X.
-    For each element in X, it computes:
-        sign(X) * max(|X| - tau, 0)
-    This is commonly used in sparse coding and L1 minimization.
-    
-    Parameters:
-        X (np.ndarray): Input array.
-        tau (float): Threshold parameter.
-        
-    Returns:
-        result (np.ndarray): The result after applying the shrinkage operator.
-    """
-    #TODO: Fill this functions
-    
-    return result
+    return np.sign(X) * np.maximum(np.abs(X) - tau, 0)
 
 def ialm(D, threshold=1e-3):
     """
@@ -36,6 +21,14 @@ def ialm(D, threshold=1e-3):
         E (np.ndarray): The recovered sparse error component.
         iterations (int): The number of iterations executed.
     """
-    #TODO: Fill this functions
+    m, n = D.shape
+    iterations = 0
+    Y = np.zeros((m, n))
+    A = np.zeros((m, n))
+    E = np.zeros((m, n))
+
+    # TODO: Fill this functions
+    # Important Notes: You can use any functions in numpy to implement svd!
+    # Recommend you to use frobenius norm in numpy
     
     return A, E, iterations
