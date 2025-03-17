@@ -95,8 +95,8 @@ def main():
         ############################# Step4: Relighting #############################
         #############################################################################
 
-        unknown_image = cv2.imread(f"{input_dir}/unknown.jpg", cv2.IMREAD_GRAYSCALE) / 255.0
-        cv2.imwrite(f"{output_dir}/{obj}/unknown_image.png", (unknown_image * image_mask * 255).astype(np.uint8))
+        ground_truth = cv2.imread(f"{input_dir}/unknown.jpg", cv2.IMREAD_GRAYSCALE) / 255.0
+        cv2.imwrite(f"{output_dir}/{obj}/ground_truth.png", (ground_truth * image_mask * 255).astype(np.uint8))
 
         unknown_light_dir = np.load(f"{args.dataset_root}/unknown_light_dir.npy")
 
@@ -104,7 +104,7 @@ def main():
         cv2.imwrite(f"{output_dir}/{obj}/relit_image.png", (relit_image * 255).astype(np.uint8))
         
         # Compute MSE
-        mse = compute_mse(unknown_image, relit_image)
+        mse = compute_mse(ground_truth, relit_image)
         with open(f"{obj_dir}/mse.txt", "w") as f:
             f.write(f"mse: {mse}\n")
         print(f"{obj}: mse = {mse}")
