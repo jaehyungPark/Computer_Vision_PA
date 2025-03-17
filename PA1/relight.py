@@ -15,7 +15,7 @@ def relight_object(normal_map, albedo_map, light_dir, mask):
         relit_img (numpy.ndarray): Image relit under the new light direction (HxW)
     """
     # TODO: Fill this functions
-    
+    # Important Notes: Consider Channels 
 
     relit_img *= mask
 
