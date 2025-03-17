@@ -29,7 +29,6 @@ The provided code follows these main steps:
    *Fill the #todo blank in* `relight_object`
 
 ## Directory Structure
-You can download data [here]().
 ```
 . 
 ├── input/                  # Input dataset directory 
