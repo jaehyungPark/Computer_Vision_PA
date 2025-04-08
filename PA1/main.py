@@ -65,8 +65,10 @@ def main():
         ########################### Step2: Least Squares ############################
         #############################################################################
     
+        # // masked area
         rows, cols = np.where(image_mask == 1)
 
+        # // initializing the intensity map I
         I = np.zeros((len(rows), args.image_cnt - 1))
 
         for i, img_path in enumerate(tqdm(images, desc='Load images')):
