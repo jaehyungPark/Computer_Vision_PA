@@ -1,4 +1,13 @@
+.DS_Store
+
 PA1/PA1_dataset/
 PA1/answer/
+
+PA1/__pycache__
+PA1/**/.DS_Store
+PA1/personal_testbed.py
+PA1/rpca_keep.py
+
 PA2/
+
 PA3/
