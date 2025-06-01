@@ -10,6 +10,6 @@ GIST computer vision programming assignments
 - TA: Dongmin Shin (newdm2000@gm.gist.ac.kr)
 
 ## PA3: Normal and Mesh Refinement
-- Due:
-- TA: Chanhwi Jeong (chanwhij@gm.gist.ac.kr)
+- Due: 12th, June, 2025
+- TA: Chanhwi Jeong (chanhwij@gm.gist.ac.kr)
 
